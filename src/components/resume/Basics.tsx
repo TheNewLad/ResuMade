@@ -1,4 +1,4 @@
-import { Basics } from "@/types/Resume";
+import { Basics } from "@/types/resume";
 
 export const Basics = ({
   name,
