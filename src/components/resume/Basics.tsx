@@ -1,4 +1,4 @@
-import { Basics } from "@/types/resume";
+import { Basics as BasicsType } from "@/types/resume";
 
 export const Basics = ({
   name,
@@ -10,7 +10,7 @@ export const Basics = ({
   summary,
   profiles,
   email,
-}: Basics) => {
+}: BasicsType) => {
   return (
     <section>
       <h1>{name}</h1>
