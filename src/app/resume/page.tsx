@@ -5,7 +5,6 @@ import { getResume } from "@/test-files/resume";
 import { jsPDF } from "jspdf";
 import { Resume } from "@/types/resume";
 import { createPdf } from "@/utils/createPdf";
-
 export default function Page() {
   const resume = getResume();
 
@@ -39,7 +38,10 @@ export default function Page() {
       {/*>*/}
       {/*  <Basics {...basics} />*/}
       {/*</div>*/}
-      <iframe src="/api/generate-resume" loading="lazy"></iframe>
+      <iframe
+        src="/api/generate-resume"
+        className="aspect-paper-letter w-1/2"
+      ></iframe>
       <button onClick={downloadPdf}>Download PDF</button>
     </div>
   );

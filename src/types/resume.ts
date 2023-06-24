@@ -20,7 +20,7 @@ export type BasicsType = {
   phone?: string;
   url?: string;
   summary?: string;
-  location?: Location;
+  location?: LocationType;
   // profiles?: Profile[];
 };
 

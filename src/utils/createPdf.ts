@@ -29,9 +29,8 @@ const defaultPaperSize: PaperSize = {
   height: convertInchesToPoints(11),
 };
 
-const preIncrement = (value: number, increment: number) => {
-  value += increment;
-  return value;
+const getStringWidth = (doc: jsPDF, str: string) => {
+  return doc.getStringUnitWidth(str) * doc.getFontSize();
 };
 
 export const createPdf = ({ basics }: ResumeType) => {
@@ -41,10 +40,27 @@ export const createPdf = ({ basics }: ResumeType) => {
   const doc = new jsPDF({ format: "letter", unit: "pt" });
   doc.setFont("times");
   doc.setFontSize(18);
+  doc.text(basics.name, width / 2, top, { align: "center" });
   doc
-    .text(basics.name, width / 2, top, { align: "center" })
-    .text(basics.name, width / 2, preIncrement(top, 18), { align: "center" })
-    .text(basics.name, width / 2, preIncrement(top, 18), { align: "center" });
+    .setFontSize(12)
+    .text(
+      `${basics.email} | ${basics.url} | ${basics.phone} | ${basics.location?.city}, ${basics.location?.region}`,
+      width / 2,
+      (top += 18),
+      {
+        align: "center",
+      }
+    );
+
+  doc
+    .setFontSize(14)
+    .text("Summary", defaultMargin.left, (top += 36))
+    .line(
+      defaultMargin.left + getStringWidth(doc, "Summary"),
+      top,
+      width - defaultMargin.right,
+      top
+    );
 
   return doc;
 };
