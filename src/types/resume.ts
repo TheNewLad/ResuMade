@@ -1,30 +1,30 @@
-export type Profile = {
-  network: string;
-  username: string;
-  url: string;
-};
+// export type ProfileType = {
+//   network: string;
+//   username: string;
+//   url: string;
+// };
 
-export type Location = {
-  address: string;
-  postalCode: string;
+export type LocationType = {
+  // address: string;
+  // postalCode: string;
   city: string;
-  countryCode: string;
+  // countryCode: string;
   region: string;
 };
 
-export type Basics = {
-  name?: string;
-  label?: string;
-  image?: string;
+export type BasicsType = {
+  name: string;
+  // label?: string;
+  // image?: string;
   email?: string;
   phone?: string;
   url?: string;
   summary?: string;
   location?: Location;
-  profiles?: Profile[];
+  // profiles?: Profile[];
 };
 
-export type Work = {
+export type WorkType = {
   name: string;
   position: string;
   url: string;
@@ -34,7 +34,7 @@ export type Work = {
   highlights: string[];
 };
 
-export type Volunteer = {
+export type VolunteerType = {
   organization: string;
   position: string;
   url: string;
@@ -44,7 +44,7 @@ export type Volunteer = {
   highlights: string[];
 };
 
-export type Education = {
+export type EducationType = {
   institution: string;
   url: string;
   area: string;
@@ -55,21 +55,21 @@ export type Education = {
   courses: string[];
 };
 
-export type Award = {
+export type AwardType = {
   title: string;
   date: string;
   awarder: string;
   summary: string;
 };
 
-export type Certificate = {
+export type CertificateType = {
   name: string;
   date: string;
   issuer: string;
   url: string;
 };
 
-export type Publication = {
+export type PublicationType = {
   name: string;
   publisher: string;
   releaseDate: string;
@@ -77,28 +77,28 @@ export type Publication = {
   summary: string;
 };
 
-export type Skill = {
+export type SkillType = {
   name: string;
   level: string;
   keywords: string[];
 };
 
-export type Language = {
+export type LanguageType = {
   language: string;
   fluency: string;
 };
 
-export type Interest = {
+export type InterestType = {
   name: string;
   keywords: string[];
 };
 
-export type Reference = {
+export type ReferenceType = {
   name: string;
   reference: string;
 };
 
-export type Project = {
+export type ProjectType = {
   name: string;
   startDate: string;
   endDate: string;
@@ -107,17 +107,17 @@ export type Project = {
   url: string;
 };
 
-export type Resume = {
-  basics?: Basics;
-  work?: Work[];
-  volunteer?: Volunteer[];
-  education?: Education[];
-  awards?: Award[];
-  certificates?: Certificate[];
-  publications?: Publication[];
-  skills?: Skill[];
-  languages?: Language[];
-  interests?: Interest[];
-  references?: Reference[];
-  projects?: Project[];
+export type ResumeType = {
+  basics: BasicsType;
+  // work?: Work[];
+  // volunteer?: Volunteer[];
+  // education?: Education[];
+  // awards?: Award[];
+  // certificates?: Certificate[];
+  // publications?: Publication[];
+  // skills?: Skill[];
+  // languages?: Language[];
+  // interests?: Interest[];
+  // references?: Reference[];
+  // projects?: Project[];
 };

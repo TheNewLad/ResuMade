@@ -1,14 +1,46 @@
+"use client";
+
 import { getResume } from "@/test-files/resume";
-import { Basics } from "@/components/resume/Basics";
+// import { Basics } from "@/components/resume/Basics";
+import { jsPDF } from "jspdf";
+import { Resume } from "@/types/resume";
+import { createPdf } from "@/utils/createPdf";
 
 export default function Page() {
-  const { basics } = getResume();
+  const resume = getResume();
+
+  const downloadPdf = () => {
+    // const { name, email, phone, url } = basics;
+    // const doc = new jsPDF({ format: "letter", unit: "in" });
+    // doc.html(document.getElementById("resume") as HTMLElement, {
+    //   callback: function (pdf) {
+    //     pdf.save("resume.pdf");
+    //   },
+    //   autoPaging: "text",
+    //   width: 8.5,
+    //   windowWidth: 290,
+    // });
+    // doc.text("Hello world!", 7, 1, { align: "right" });
+    // doc.text("World hello!", 1000, 10, { align: "right" });
+    // console.log("downloadPdf", doc);
+    // const doc = createPdf(resume);
+    // doc.save("a4.pdf");
+  };
+
+  const doc = createPdf(resume);
+  // doc.save("a4.pdf");
+
   return (
     <div className="mx-auto flex flex-col items-center">
       <h1>Resume</h1>
-      <div className={"aspect-paper-letter bg-white p-12 text-black"}>
-        <Basics {...basics} />
-      </div>
+      {/*<div*/}
+      {/*  id="resume"*/}
+      {/*  className={"aspect-paper-letter bg-white p-12 text-black"}*/}
+      {/*>*/}
+      {/*  <Basics {...basics} />*/}
+      {/*</div>*/}
+      <iframe src="/api/generate-resume" loading="lazy"></iframe>
+      <button onClick={downloadPdf}>Download PDF</button>
     </div>
   );
 }
