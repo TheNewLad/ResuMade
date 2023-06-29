@@ -6,10 +6,10 @@ import { jsPDF } from "jspdf";
 import { Resume } from "@/types/resume";
 import { createPdf } from "@/utils/createPdf";
 import { BasePDFGenerator } from "@/pdf-generators/BasePDFGenerator";
-import { BasicTheme } from "@/pdf-generators/BasicTheme";
+import { SimpleGenerator } from "@/pdf-generators/SimpleGenerator";
 export default function Page() {
   const resume = getResume();
-  const pdf = new BasicTheme(resume);
+  const pdf = new SimpleGenerator(resume);
 
   const downloadPdf = () => {
     // const { name, email, phone, url } = basics;
