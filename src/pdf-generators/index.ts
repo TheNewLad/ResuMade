@@ -1,2 +1,3 @@
-import { ResumeType } from "@/types/resume";
-import { jsPDF } from "jspdf";
+import { SimpleGenerator } from "@/pdf-generators/SimpleGenerator";
+
+export { SimpleGenerator };
