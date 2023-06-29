@@ -1,4 +1,4 @@
-import { AbstractTheme } from "@/themes/AbstractTheme";
+import { AbstractTheme } from "@/pdf-generators/AbstractTheme";
 import { jsPDF } from "jspdf";
 import { ResumeType } from "@/types/resume";
 
