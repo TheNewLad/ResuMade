@@ -5,8 +5,11 @@ import { getResume } from "@/test-files/resume";
 import { jsPDF } from "jspdf";
 import { Resume } from "@/types/resume";
 import { createPdf } from "@/utils/createPdf";
+import { AbstractTheme } from "@/themes/AbstractTheme";
+import { BasicTheme } from "@/themes/BasicTheme";
 export default function Page() {
   const resume = getResume();
+  const pdf = new BasicTheme(resume);
 
   const downloadPdf = () => {
     // const { name, email, phone, url } = basics;
@@ -25,10 +28,12 @@ export default function Page() {
     // const doc = createPdf(resume);
     // doc.save("a4.pdf");
 
-    const resume = getResume();
-    const pdf = createPdf(resume);
+    // const resume = getResume();
+    // const pdf = createPdf(resume);
     //pdfData is the pdf output of jsPDF
-    const pdfData = pdf.output("dataurlnewwindow");
+    // const pdfData = pdf.output("dataurlnewwindow");
+
+    pdf.viewPdf();
   };
 
   const doc = createPdf(resume);
