@@ -5,7 +5,7 @@ import { getResume } from "@/test-files/resume";
 import { jsPDF } from "jspdf";
 import { Resume } from "@/types/resume";
 import { createPdf } from "@/utils/createPdf";
-import { AbstractTheme } from "@/pdf-generators/AbstractTheme";
+import { BasePDFGenerator } from "@/pdf-generators/BasePDFGenerator";
 import { BasicTheme } from "@/pdf-generators/BasicTheme";
 export default function Page() {
   const resume = getResume();

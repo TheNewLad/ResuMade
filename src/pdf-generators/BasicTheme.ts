@@ -1,8 +1,8 @@
-import { AbstractTheme } from "@/pdf-generators/AbstractTheme";
+import { BasePDFGenerator } from "@/pdf-generators/BasePDFGenerator";
 import { jsPDF } from "jspdf";
 import { ResumeType } from "@/types/resume";
 
-export class BasicTheme extends AbstractTheme {
+export class BasicTheme extends BasePDFGenerator {
   constructor(resume: ResumeType) {
     const doc = new jsPDF({ format: "letter", unit: "pt" });
     super(resume, doc);

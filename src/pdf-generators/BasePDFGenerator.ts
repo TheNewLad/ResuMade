@@ -13,7 +13,7 @@ interface PaperSize {
   height: number;
 }
 
-export abstract class AbstractTheme {
+export abstract class BasePDFGenerator {
   protected resume: ResumeType;
   protected doc: jsPDF;
 
@@ -45,7 +45,7 @@ export abstract class AbstractTheme {
     pdf.output("dataurlnewwindow");
   }
 
-  static savePdf({ resume, createPdf }: AbstractTheme): void {
+  static savePdf({ resume, createPdf }: BasePDFGenerator): void {
     const pdf = createPdf();
     pdf.save(`${resume.basics.name}-resume.pdf`);
   }
