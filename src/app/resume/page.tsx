@@ -24,6 +24,11 @@ export default function Page() {
     // console.log("downloadPdf", doc);
     // const doc = createPdf(resume);
     // doc.save("a4.pdf");
+
+    const resume = getResume();
+    const pdf = createPdf(resume);
+    //pdfData is the pdf output of jsPDF
+    const pdfData = pdf.output("dataurlnewwindow");
   };
 
   const doc = createPdf(resume);
