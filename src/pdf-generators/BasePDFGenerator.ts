@@ -45,9 +45,9 @@ export abstract class BasePDFGenerator {
     pdf.output("dataurlnewwindow");
   }
 
-  static savePdf({ resume, createPdf }: BasePDFGenerator): void {
-    const pdf = createPdf();
-    pdf.save(`${resume.basics.name}-resume.pdf`);
+  savePdf(): void {
+    const pdf = this.createPdf();
+    pdf.save(`${this.resume.basics.name}-resume.pdf`);
   }
 }
 

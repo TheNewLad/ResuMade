@@ -29,6 +29,7 @@ export default function Page() {
         className="aspect-paper-letter w-1/2"
       ></iframe>
       <button onClick={() => pdf.viewPdf()}>View PDF</button>
+      <button onClick={() => pdf.savePdf()}>Save PDF</button>
     </div>
   );
 }
