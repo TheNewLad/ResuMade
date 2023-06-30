@@ -9,7 +9,7 @@ export default function Page() {
   const [pdf, setPdf] = useState<SimpleGenerator>(new SimpleGenerator(resume));
 
   useEffect(() => {
-    pdf.getPreview().then((url) => setPdfUrl(url));
+    pdf.getPreviewUrl().then((url) => setPdfUrl(url));
   }, [pdf]);
 
   return (
