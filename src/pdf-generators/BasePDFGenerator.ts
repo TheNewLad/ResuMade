@@ -40,6 +40,11 @@ export abstract class BasePDFGenerator {
 
   abstract createPdf(): jsPDF;
 
+  async getPreview(): Promise<string> {
+    const pdf = this.createPdf();
+    return pdf.output("datauristring").toString();
+  }
+
   viewPdf(): void {
     const pdf = this.createPdf();
     pdf.output("dataurlnewwindow");
