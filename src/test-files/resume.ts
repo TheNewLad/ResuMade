@@ -1,6 +1,6 @@
 import resumeJson from "./resume.json";
-import { Resume } from "@/types/resume";
+import { ResumeType } from "@/types/resume";
 
-export const getResume = (): Resume => {
+export const getResume = (): ResumeType => {
   return resumeJson;
 };
