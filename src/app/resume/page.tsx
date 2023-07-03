@@ -2,6 +2,7 @@
 import { getResume } from "@/test-files/resume";
 import { SimpleGenerator } from "@/pdf-generators";
 import { useEffect, useState } from "react";
+import { PDFViewer } from "@/components/PDFViewer";
 
 export default function Page() {
   const [pdfUrl, setPdfUrl] = useState<string>("");
@@ -15,7 +16,7 @@ export default function Page() {
   return (
     <div className="mx-auto flex flex-col items-center">
       <h1>Resume</h1>
-      <iframe src={pdfUrl} className="aspect-paper-letter w-1/2"></iframe>
+      <PDFViewer url={pdfUrl} />
       <button onClick={() => pdf.viewPdf()}>View PDF</button>
       <button onClick={() => pdf.savePdf()}>Save PDF</button>
     </div>
