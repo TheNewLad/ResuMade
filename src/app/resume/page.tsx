@@ -2,11 +2,7 @@
 import { getResume } from "@/test-files/resume";
 import { SimpleGenerator } from "@/pdf-generators";
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-
-const PDFViewer = dynamic(() => import("@/components/PDFViewer/Viewer"), {
-  ssr: false,
-});
+import PDFViewer from "@/components/PDFViewer";
 
 export default function Page() {
   const [pdfUrl, setPdfUrl] = useState<string>("");
