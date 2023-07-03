@@ -4,7 +4,7 @@ import { SimpleGenerator } from "@/pdf-generators";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
-const PDFViewer = dynamic(() => import("@/components/PDFViewer"), {
+const PDFViewer = dynamic(() => import("@/components/PDFViewer/Viewer"), {
   ssr: false,
 });
 

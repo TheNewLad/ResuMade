@@ -5,7 +5,7 @@ interface PDFViewerProps {
   url: string;
 }
 
-export default function PDFViewer({ url }: PDFViewerProps) {
+export default function Viewer({ url }: PDFViewerProps) {
   const [page, setPage] = useState(1);
   const canvasRef = useRef(null);
 
