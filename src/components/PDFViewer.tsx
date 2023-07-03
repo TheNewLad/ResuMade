@@ -1,7 +1,43 @@
+import { usePdf } from "@mikecousins/react-pdf";
+import { useRef, useState } from "react";
+
 interface PDFViewerProps {
   url: string;
 }
 
-export const PDFViewer = ({ url }: PDFViewerProps) => {
-  return <iframe src={url} className="aspect-paper-letter w-1/2"></iframe>;
-};
+export default function PDFViewer({ url }: PDFViewerProps) {
+  const [page, setPage] = useState(1);
+  const canvasRef = useRef(null);
+
+  const { pdfDocument, pdfPage } = usePdf({
+    file: url,
+    page,
+    canvasRef,
+  });
+
+  return (
+    <div>
+      {!pdfDocument && <span>Loading...</span>}
+      <canvas ref={canvasRef} />
+      {Boolean(pdfDocument && pdfDocument.numPages) && (
+        <nav>
+          <ul className="pager">
+            <li className="previous">
+              <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+                Previous
+              </button>
+            </li>
+            <li className="next">
+              <button
+                disabled={page === pdfDocument?.numPages}
+                onClick={() => setPage(page + 1)}
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
+      )}
+    </div>
+  );
+}
