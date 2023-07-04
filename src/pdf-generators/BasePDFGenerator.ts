@@ -47,7 +47,7 @@ export abstract class BasePDFGenerator {
 
   viewPdf(): void {
     const pdf = this.createPdf();
-    pdf.output("pdfobjectnewwindow");
+    pdf.output("pdfjsnewwindow");
   }
 
   savePdf(): void {
