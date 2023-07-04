@@ -31,7 +31,7 @@ export default function Viewer({ url, viewPdf, savePdf }: PDFViewerProps) {
       ) : (
         <div className="p-10">
           <canvas className="w-full" ref={canvasRef} />
-          <div className="flex w-full max-w-sm justify-between">
+          <div className="flex justify-between">
             <div>
               <ActionButton onClick={() => viewPdf()} aria-label={"View PDF"}>
                 <EyeIcon className={"h-6 w-6"} />
