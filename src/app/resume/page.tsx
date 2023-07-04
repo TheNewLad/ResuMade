@@ -15,10 +15,15 @@ export default function Page() {
 
   return (
     <div className="mx-auto flex flex-col items-center">
-      <h1>Resume</h1>
-      <PDFViewer url={pdfUrl} />
-      <button onClick={() => pdf.viewPdf()}>View PDF</button>
-      <button onClick={() => pdf.savePdf()}>Save PDF</button>
+      <div className="flex w-full justify-evenly">
+        {/*<button onClick={() => pdf.viewPdf()}>Open Resume in New Tab</button>*/}
+        {/*<button onClick={() => pdf.savePdf()}>Save Resume</button>*/}
+      </div>
+      <PDFViewer
+        url={pdfUrl}
+        viewPdf={() => pdf.viewPdf()}
+        savePdf={() => pdf.savePdf()}
+      />
     </div>
   );
 }
