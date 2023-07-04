@@ -15,13 +15,10 @@ export default function Page() {
 
   return (
     <div className="mx-auto flex flex-col items-center">
-      <div className="flex w-full justify-evenly">
-        {/*<button onClick={() => pdf.viewPdf()}>Open Resume in New Tab</button>*/}
-        {/*<button onClick={() => pdf.savePdf()}>Save Resume</button>*/}
-      </div>
+      <div className="flex w-full justify-evenly"></div>
       <PDFViewer
         url={pdfUrl}
-        viewPdf={() => pdf.viewPdf()}
+        viewPdf={() => window.open(pdfUrl, "_blank")?.focus()}
         savePdf={() => pdf.savePdf()}
       />
     </div>
