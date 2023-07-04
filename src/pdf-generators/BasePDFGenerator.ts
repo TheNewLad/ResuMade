@@ -45,11 +45,6 @@ export abstract class BasePDFGenerator {
     return pdf.output("bloburl").toString();
   }
 
-  viewPdf(): void {
-    const pdf = this.createPdf();
-    pdf.output("pdfjsnewwindow");
-  }
-
   savePdf(): void {
     const pdf = this.createPdf();
     pdf.save(`${this.resume.basics.name}-resume.pdf`);
