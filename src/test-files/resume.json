@@ -6,7 +6,7 @@
     "email": "john@gmail.com",
     "phone": "(912) 555-4321",
     "url": "https://johndoe.com",
-    "summary": "A summary of John Doe…",
+    "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis felis eu arcu tempus pulvinar in a justo. In commodo dictum venenatis. Etiam accumsan lobortis leo, sed fermentum sem malesuada at. Donec auctor lacinia ipsum, quis commodo urna porta vel. Sed vestibulum eros eu urna tempor aliquam. Sed tincidunt nisi augue, in condimentum ligula tempus at. In sapien ligula, accumsan et dolor cursus, condimentum sodales mauris. Sed suscipit ligula at felis lacinia, quis pharetra neque finibus. Donec vestibulum finibus tellus eu dictum. Pellentesque placerat tristique ante, vitae pretium felis efficitur ac.",
     "location": {
       "address": "2712 Broadway St",
       "postalCode": "CA 94115",
