@@ -44,6 +44,6 @@ const getWork = (present: boolean = false): WorkType => {
       year: "numeric",
     }),
     endDate,
-    highlights: [faker.lorem.sentence()],
+    highlights: [...faker.lorem.sentences({ min: 3, max: 6 }, ",").split(",")],
   };
 };

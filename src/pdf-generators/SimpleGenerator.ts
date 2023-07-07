@@ -116,12 +116,15 @@ export class SimpleGenerator extends BasePDFGenerator {
             work.position,
             defaultMargin.left,
             (defaultMargin.top += documentFontSize * 1.2)
-          )
-          .text(
-            work.highlights.join(", "),
+          );
+
+        work.highlights.forEach((highlight) => {
+          doc.text(
+            `   •  ${highlight}`,
             defaultMargin.left,
             (defaultMargin.top += documentFontSize * 1.2)
           );
+        });
       });
     }
 
