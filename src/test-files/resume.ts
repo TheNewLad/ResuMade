@@ -22,18 +22,28 @@ export const getResume = (): ResumeType => {
 const getWorkExperience = (): WorkType[] => {
   const workExperience: WorkType[] = [];
   for (let i = 0; i < 3; i++) {
-    workExperience.push(getWork());
+    workExperience.push(getWork(i === 0));
   }
   return workExperience;
 };
 
-const getWork = (): WorkType => {
+const getWork = (present: boolean = false): WorkType => {
+  const endDate = present
+    ? "Present"
+    : faker.date.past().toLocaleString("en-US", {
+        month: "short",
+        year: "numeric",
+      });
+
   return {
     name: faker.company.name(),
     position: faker.person.jobTitle(),
     url: faker.internet.url(),
-    startDate: faker.date.past().toISOString(),
-    endDate: faker.date.past().toISOString(),
+    startDate: faker.date.past().toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    }),
+    endDate,
     highlights: [faker.lorem.sentence()],
   };
 };

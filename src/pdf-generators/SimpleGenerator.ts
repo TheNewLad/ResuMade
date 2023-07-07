@@ -96,32 +96,24 @@ export class SimpleGenerator extends BasePDFGenerator {
         .setFontSize(documentFontSize);
 
       resume.work.forEach((work, index) => {
-        const boldTextProportion = 1.04; // this is an approximation
         doc.setFont("times", "bold");
-        const workName = `${work.name} |`;
-        const workNameWidth =
-          this.getStringWidth(`${workName}`) * boldTextProportion;
 
         doc
           .text(
-            workName,
+            work.name,
             defaultMargin.left,
             (defaultMargin.top +=
               index === 0 ? documentFontSize * 1.5 : documentFontSize * 2)
           )
           .setFont("times", "normal")
           .text(
-            `${work.position}`,
-            defaultMargin.left + workNameWidth,
-            defaultMargin.top
+            `${work.startDate} — ${work.endDate}`,
+            defaultPaperSize.width - defaultMargin.right,
+            defaultMargin.top,
+            { align: "right" }
           )
           .text(
-            work.startDate,
-            defaultMargin.left,
-            (defaultMargin.top += documentFontSize * 1.2)
-          )
-          .text(
-            work.endDate,
+            work.position,
             defaultMargin.left,
             (defaultMargin.top += documentFontSize * 1.2)
           )
