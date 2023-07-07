@@ -19,10 +19,7 @@ export class SimpleGenerator extends BasePDFGenerator {
       defaultPaperSize,
       nameFontSize,
       documentFontSize,
-      writeHeader,
     } = this;
-
-    console.log("createPdf", this);
 
     const { name, email, phone, url, summary, location } = resume.basics;
 
@@ -56,6 +53,12 @@ export class SimpleGenerator extends BasePDFGenerator {
           defaultMargin.left,
           (defaultMargin.top += documentFontSize * 2)
         )
+        .line(
+          defaultMargin.left,
+          (defaultMargin.top += documentFontSize * 0.25),
+          defaultPaperSize.width - defaultMargin.right,
+          defaultMargin.top
+        )
         .setFont("times", "normal")
         .setFontSize(documentFontSize);
 
@@ -75,28 +78,43 @@ export class SimpleGenerator extends BasePDFGenerator {
     }
 
     // Add work experience
-    if (resume?.work?.length) {
+    if (!!resume?.work?.length) {
       doc.setFont("times", "bold").setFontSize(documentFontSize);
-      writeHeader(
-        "Experience",
-        defaultMargin.left,
-        (defaultMargin.top += documentFontSize * 2)
-      )
+      doc
+        .text(
+          "Experience",
+          defaultMargin.left,
+          (defaultMargin.top += documentFontSize * 2)
+        )
+        .line(
+          defaultMargin.left,
+          (defaultMargin.top += documentFontSize * 0.25),
+          defaultPaperSize.width - defaultMargin.right,
+          defaultMargin.top
+        )
         .setFont("times", "normal")
         .setFontSize(documentFontSize);
 
       resume.work.forEach((work, index) => {
+        const boldTextProportion = 1.04; // this is an approximation
+        doc.setFont("times", "bold");
+        const workName = `${work.name} |`;
+        const workNameWidth =
+          this.getStringWidth(`${workName}`) * boldTextProportion;
+
         doc
-          .setFont("times", "bold")
           .text(
-            work.name,
+            workName,
             defaultMargin.left,
-            (defaultMargin.top += documentFontSize * 2)
+            (defaultMargin.top +=
+              index === 0 ? documentFontSize * 1.5 : documentFontSize * 2)
           )
           .setFont("times", "normal")
-          .text(work.position, defaultPaperSize.width / 2, defaultMargin.top, {
-            align: "center",
-          })
+          .text(
+            `${work.position}`,
+            defaultMargin.left + workNameWidth,
+            defaultMargin.top
+          )
           .text(
             work.startDate,
             defaultMargin.left,
@@ -116,32 +134,5 @@ export class SimpleGenerator extends BasePDFGenerator {
     }
 
     return doc;
-  };
-
-  private writeHeader = (
-    // doc: jsPDF,
-    text: string,
-    x: number,
-    y: number
-  ): jsPDF => {
-    const { doc, documentFontSize } = this;
-    const capitalizedFirstLetter = text.charAt(0).toUpperCase();
-    const capitalizedRest = text.slice(1).toUpperCase();
-
-    const firstLetterWidth = this.getDocStringWidth(
-      `${capitalizedFirstLetter} `
-    );
-
-    const initialCharSpace = doc.getCharSpace();
-    doc.setFontSize(documentFontSize);
-    doc.setCharSpace(2);
-
-    doc.text(capitalizedFirstLetter, x, y);
-    doc.setFontSize(documentFontSize * 0.8);
-    doc.text(capitalizedRest, x + firstLetterWidth, y);
-
-    doc.setCharSpace(initialCharSpace);
-
-    return this.doc;
   };
 }

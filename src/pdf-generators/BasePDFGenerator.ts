@@ -9,8 +9,8 @@ interface Margin {
 }
 
 interface PaperSize {
-  width: number;
-  height: number;
+  readonly width: number;
+  readonly height: number;
 }
 
 export abstract class BasePDFGenerator {
@@ -29,9 +29,8 @@ export abstract class BasePDFGenerator {
     height: convertInchesToPoints(11),
   };
 
-  protected getStringWidth = (str: string) => {
-    return this.doc.getStringUnitWidth(str) * this.doc.getFontSize();
-  };
+  protected getStringWidth = (str: string) =>
+    Math.round(this.doc.getStringUnitWidth(str) * this.doc.getFontSize());
 
   protected constructor(resume: ResumeType, doc: jsPDF) {
     this.resume = resume;
