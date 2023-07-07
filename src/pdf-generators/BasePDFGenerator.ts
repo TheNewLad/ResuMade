@@ -29,8 +29,8 @@ export abstract class BasePDFGenerator {
     height: convertInchesToPoints(11),
   };
 
-  protected getStringWidth = (doc: jsPDF, str: string) => {
-    return doc.getStringUnitWidth(str) * doc.getFontSize();
+  protected getStringWidth = (str: string) => {
+    return this.doc.getStringUnitWidth(str) * this.doc.getFontSize();
   };
 
   protected constructor(resume: ResumeType, doc: jsPDF) {
