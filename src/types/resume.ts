@@ -30,7 +30,7 @@ export type WorkType = {
   url: string;
   startDate: string;
   endDate: string;
-  summary: string;
+  // summary: string;
   highlights: string[];
 };
 
@@ -109,7 +109,7 @@ export type ProjectType = {
 
 export type ResumeType = {
   basics: BasicsType;
-  // work?: Work[];
+  work?: WorkType[];
   // volunteer?: Volunteer[];
   // education?: Education[];
   // awards?: Award[];
