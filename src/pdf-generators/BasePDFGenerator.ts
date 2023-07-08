@@ -49,6 +49,8 @@ export abstract class BasePDFGenerator {
     pdf.save(`${this.resume.basics.name}-resume.pdf`);
   };
 
+  protected abstract writeHeader(text: string): void;
+
   protected abstract writeBasicInfo(basics: BasicsType): void;
 
   protected abstract writeSummary(summary: string): void;

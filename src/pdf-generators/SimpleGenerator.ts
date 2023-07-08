@@ -27,7 +27,7 @@ export class SimpleGenerator extends BasePDFGenerator {
     return doc;
   };
 
-  private writeHeader = (text: string): void => {
+  protected writeHeader = (text: string): void => {
     const { doc, defaultMargin, defaultPaperSize, documentFontSize, fontName } =
       this;
 
@@ -49,7 +49,7 @@ export class SimpleGenerator extends BasePDFGenerator {
       .setFontSize(documentFontSize);
   };
 
-  private writeBasicInfo = (basics: BasicsType): void => {
+  protected writeBasicInfo = (basics: BasicsType): void => {
     const {
       doc,
       defaultMargin,
@@ -76,7 +76,7 @@ export class SimpleGenerator extends BasePDFGenerator {
       );
   };
 
-  private writeSummary = (summary?: string): void => {
+  protected writeSummary = (summary?: string): void => {
     if (!summary) return;
 
     const {
@@ -100,7 +100,7 @@ export class SimpleGenerator extends BasePDFGenerator {
     });
   };
 
-  private writeWorkExperience = (work?: WorkType[]): void => {
+  protected writeWorkExperience = (work?: WorkType[]): void => {
     if (!work?.length) return;
 
     const {
@@ -161,7 +161,7 @@ export class SimpleGenerator extends BasePDFGenerator {
     });
   };
 
-  private splitLines = (text: string): any[] =>
+  protected splitLines = (text: string): any[] =>
     this.doc.splitTextToSize(
       text,
       this.defaultPaperSize.width -
