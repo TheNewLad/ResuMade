@@ -1,6 +1,6 @@
 import { BasePDFGenerator } from "@/pdf-generators/BasePDFGenerator";
 import { jsPDF } from "jspdf";
-import { ResumeType, WorkType } from "@/types/resume";
+import { BasicsType, ResumeType, WorkType } from "@/types/resume";
 
 export class SimpleGenerator extends BasePDFGenerator {
   private documentFontSize = 12;
@@ -14,39 +14,13 @@ export class SimpleGenerator extends BasePDFGenerator {
   }
 
   createPdf = (): jsPDF => {
-    const {
-      doc,
-      resume,
-      defaultMargin,
-      defaultPaperSize,
-      nameFontSize,
-      documentFontSize,
-      fontName,
-    } = this;
-
-    const { name, email, phone, url, summary, location } = resume.basics;
-
-    // const getStringWidth = (str: string) => getDocStringWidth(doc, str);
+    const { doc, resume, fontName } = this;
 
     doc.setFont(fontName);
 
-    // Add name and contact info
-    doc
-      .setFontSize(nameFontSize)
-      .text(name, defaultPaperSize.width / 2, defaultMargin.top, {
-        align: "center",
-      })
-      .setFontSize(documentFontSize)
-      .text(
-        `${email} | ${url} | ${phone} | ${location?.city}, ${location?.region}`,
-        defaultPaperSize.width / 2,
-        (defaultMargin.top += nameFontSize),
-        {
-          align: "center",
-        }
-      );
+    this.writeBasicInfo(resume.basics);
 
-    this.writeSummary(summary);
+    this.writeSummary(resume.basics.summary);
 
     this.writeWorkExperience(resume.work);
 
@@ -56,6 +30,7 @@ export class SimpleGenerator extends BasePDFGenerator {
   private writeHeader = (text: string): void => {
     const { doc, defaultMargin, defaultPaperSize, documentFontSize, fontName } =
       this;
+
     doc
       .setFont(fontName, "bold")
       .setFontSize(documentFontSize)
@@ -72,6 +47,33 @@ export class SimpleGenerator extends BasePDFGenerator {
       )
       .setFont(fontName, "normal")
       .setFontSize(documentFontSize);
+  };
+
+  private writeBasicInfo = (basics: BasicsType): void => {
+    const {
+      doc,
+      defaultMargin,
+      defaultPaperSize,
+      nameFontSize,
+      documentFontSize,
+    } = this;
+
+    const { name, email, phone, url, location } = basics;
+
+    doc
+      .setFontSize(nameFontSize)
+      .text(name, defaultPaperSize.width / 2, defaultMargin.top, {
+        align: "center",
+      })
+      .setFontSize(documentFontSize)
+      .text(
+        `${email} | ${url} | ${phone} | ${location?.city}, ${location?.region}`,
+        defaultPaperSize.width / 2,
+        (defaultMargin.top += nameFontSize),
+        {
+          align: "center",
+        }
+      );
   };
 
   private writeSummary = (summary?: string): void => {
