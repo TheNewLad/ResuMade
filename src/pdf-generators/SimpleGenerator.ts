@@ -45,21 +45,7 @@ export class SimpleGenerator extends BasePDFGenerator {
         }
       );
 
-    // Add summary
-    if (summary) {
-      this.writeHeader("Summary");
-
-      this.splitLines(summary).forEach((line, index) => {
-        doc.text(
-          line,
-          defaultMargin.left,
-          (defaultMargin.top +=
-            index === 0
-              ? documentFontSize * 1.5
-              : documentFontSize * lineHeight)
-        );
-      });
-    }
+    this.writeSummary(summary);
 
     // Add work experience
     if (!!resume?.work?.length) {
@@ -112,7 +98,7 @@ export class SimpleGenerator extends BasePDFGenerator {
     return doc;
   };
 
-  private writeHeader = (text: string): jsPDF => {
+  private writeHeader = (text: string): void => {
     const { doc, defaultMargin, defaultPaperSize, documentFontSize } = this;
     doc
       .setFont("times", "bold")
@@ -130,8 +116,30 @@ export class SimpleGenerator extends BasePDFGenerator {
       )
       .setFont("times", "normal")
       .setFontSize(documentFontSize);
+  };
 
-    return doc;
+  private writeSummary = (summary?: string): void => {
+    if (!summary) return;
+
+    const {
+      doc,
+      defaultMargin,
+      documentFontSize,
+      lineHeight,
+      writeHeader,
+      splitLines,
+    } = this;
+
+    writeHeader("Summary");
+
+    splitLines(summary).forEach((line, index) => {
+      doc.text(
+        line,
+        defaultMargin.left,
+        (defaultMargin.top +=
+          index === 0 ? documentFontSize * 1.5 : documentFontSize * lineHeight)
+      );
+    });
   };
 
   private splitLines = (text: string): any[] =>
