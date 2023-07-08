@@ -79,6 +79,9 @@ export class SimpleGenerator extends BasePDFGenerator {
 
     // Add work experience
     if (!!resume?.work?.length) {
+      const bulletPointWithSpace = "   •   ";
+      const bulletPointWidth = this.getStringWidth(bulletPointWithSpace);
+
       doc.setFont("times", "bold").setFontSize(documentFontSize);
       doc
         .text(
@@ -120,14 +123,30 @@ export class SimpleGenerator extends BasePDFGenerator {
 
         work.highlights.forEach((highlight) => {
           doc.text(
-            `   •  ${highlight}`,
+            bulletPointWithSpace,
             defaultMargin.left,
             (defaultMargin.top += documentFontSize * 1.2)
           );
+
+          this.splitLines(highlight).forEach((line, index) => {
+            doc.text(
+              line,
+              defaultMargin.left + bulletPointWidth,
+              (defaultMargin.top += index === 0 ? 0 : documentFontSize * 1.2)
+            );
+          });
         });
       });
     }
 
     return doc;
   };
+
+  private splitLines = (text: string): any[] =>
+    this.doc.splitTextToSize(
+      text,
+      this.defaultPaperSize.width -
+        this.defaultMargin.left -
+        this.defaultMargin.right
+    );
 }
