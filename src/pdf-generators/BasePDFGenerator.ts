@@ -1,4 +1,4 @@
-import { ResumeType } from "@/types/resume";
+import { BasicsType, ResumeType, WorkType } from "@/types/resume";
 import { jsPDF } from "jspdf";
 
 interface Margin {
@@ -48,6 +48,12 @@ export abstract class BasePDFGenerator {
     const pdf = this.createPdf();
     pdf.save(`${this.resume.basics.name}-resume.pdf`);
   };
+
+  protected abstract writeBasicInfo(basics: BasicsType): void;
+
+  protected abstract writeSummary(summary: string): void;
+
+  protected abstract writeWorkExperience(work: WorkType[]): void;
 }
 
 const convertInchesToPoints = (inches: number) => {
