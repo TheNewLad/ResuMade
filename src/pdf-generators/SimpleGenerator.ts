@@ -47,22 +47,7 @@ export class SimpleGenerator extends BasePDFGenerator {
 
     // Add summary
     if (summary) {
-      doc
-        .setFont("times", "bold")
-        .setFontSize(documentFontSize)
-        .text(
-          "Summary",
-          defaultMargin.left,
-          (defaultMargin.top += documentFontSize * 2)
-        )
-        .line(
-          defaultMargin.left,
-          (defaultMargin.top += documentFontSize * 0.25),
-          defaultPaperSize.width - defaultMargin.right,
-          defaultMargin.top
-        )
-        .setFont("times", "normal")
-        .setFontSize(documentFontSize);
+      this.writeHeader("Summary");
 
       this.splitLines(summary).forEach((line, index) => {
         doc.text(
@@ -81,26 +66,11 @@ export class SimpleGenerator extends BasePDFGenerator {
       const bulletPointWithSpace = "   •   ";
       const bulletPointWidth = this.getStringWidth(bulletPointWithSpace);
 
-      doc.setFont("times", "bold").setFontSize(documentFontSize);
-      doc
-        .text(
-          "Experience",
-          defaultMargin.left,
-          (defaultMargin.top += documentFontSize * 2)
-        )
-        .line(
-          defaultMargin.left,
-          (defaultMargin.top += documentFontSize * 0.25),
-          defaultPaperSize.width - defaultMargin.right,
-          defaultMargin.top
-        )
-        .setFont("times", "normal")
-        .setFontSize(documentFontSize);
+      this.writeHeader("Experience");
 
       resume.work.forEach((work, index) => {
-        doc.setFont("times", "bold");
-
         doc
+          .setFont("times", "bold")
           .text(
             work.name,
             defaultMargin.left,
@@ -138,6 +108,28 @@ export class SimpleGenerator extends BasePDFGenerator {
         });
       });
     }
+
+    return doc;
+  };
+
+  private writeHeader = (text: string): jsPDF => {
+    const { doc, defaultMargin, defaultPaperSize, documentFontSize } = this;
+    doc
+      .setFont("times", "bold")
+      .setFontSize(documentFontSize)
+      .text(
+        text,
+        defaultMargin.left,
+        (defaultMargin.top += documentFontSize * 2)
+      )
+      .line(
+        defaultMargin.left,
+        (defaultMargin.top += documentFontSize * 0.25),
+        defaultPaperSize.width - defaultMargin.right,
+        defaultMargin.top
+      )
+      .setFont("times", "normal")
+      .setFontSize(documentFontSize);
 
     return doc;
   };
