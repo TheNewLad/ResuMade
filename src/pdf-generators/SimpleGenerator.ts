@@ -5,6 +5,7 @@ import { ResumeType } from "@/types/resume";
 export class SimpleGenerator extends BasePDFGenerator {
   private documentFontSize = 12;
   private nameFontSize = 18;
+  private lineHeight = 1.2;
 
   constructor(resume: ResumeType) {
     const doc = new jsPDF({ format: "letter", unit: "pt" });
@@ -19,6 +20,7 @@ export class SimpleGenerator extends BasePDFGenerator {
       defaultPaperSize,
       nameFontSize,
       documentFontSize,
+      lineHeight,
     } = this;
 
     const { name, email, phone, url, summary, location } = resume.basics;
@@ -62,17 +64,14 @@ export class SimpleGenerator extends BasePDFGenerator {
         .setFont("times", "normal")
         .setFontSize(documentFontSize);
 
-      const lines: any[] = doc.splitTextToSize(
-        summary,
-        defaultPaperSize.width - defaultMargin.left - defaultMargin.right
-      );
-
-      lines.forEach((line, index) => {
+      this.splitLines(summary).forEach((line, index) => {
         doc.text(
           line,
           defaultMargin.left,
           (defaultMargin.top +=
-            index === 0 ? documentFontSize * 1.5 : documentFontSize * 1.2)
+            index === 0
+              ? documentFontSize * 1.5
+              : documentFontSize * lineHeight)
         );
       });
     }
@@ -118,21 +117,22 @@ export class SimpleGenerator extends BasePDFGenerator {
           .text(
             work.position,
             defaultMargin.left,
-            (defaultMargin.top += documentFontSize * 1.2)
+            (defaultMargin.top += documentFontSize * lineHeight)
           );
 
         work.highlights.forEach((highlight) => {
           doc.text(
             bulletPointWithSpace,
             defaultMargin.left,
-            (defaultMargin.top += documentFontSize * 1.2)
+            (defaultMargin.top += documentFontSize * lineHeight)
           );
 
           this.splitLines(highlight).forEach((line, index) => {
             doc.text(
               line,
               defaultMargin.left + bulletPointWidth,
-              (defaultMargin.top += index === 0 ? 0 : documentFontSize * 1.2)
+              (defaultMargin.top +=
+                index === 0 ? 0 : documentFontSize * lineHeight)
             );
           });
         });
