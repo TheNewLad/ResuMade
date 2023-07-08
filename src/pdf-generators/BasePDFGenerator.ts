@@ -39,15 +39,15 @@ export abstract class BasePDFGenerator {
 
   abstract createPdf(): jsPDF;
 
-  async getPreviewUrl(): Promise<string> {
+  getPreviewUrl = async (): Promise<string> => {
     const pdf = this.createPdf();
     return pdf.output("bloburl").toString();
-  }
+  };
 
-  savePdf(): void {
+  savePdf = (): void => {
     const pdf = this.createPdf();
     pdf.save(`${this.resume.basics.name}-resume.pdf`);
-  }
+  };
 }
 
 const convertInchesToPoints = (inches: number) => {
