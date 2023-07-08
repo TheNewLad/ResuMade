@@ -1,11 +1,12 @@
 import { BasePDFGenerator } from "@/pdf-generators/BasePDFGenerator";
 import { jsPDF } from "jspdf";
-import { ResumeType } from "@/types/resume";
+import { ResumeType, WorkType } from "@/types/resume";
 
 export class SimpleGenerator extends BasePDFGenerator {
   private documentFontSize = 12;
   private nameFontSize = 18;
   private lineHeight = 1.2;
+  private fontName = "times";
 
   constructor(resume: ResumeType) {
     const doc = new jsPDF({ format: "letter", unit: "pt" });
@@ -20,14 +21,14 @@ export class SimpleGenerator extends BasePDFGenerator {
       defaultPaperSize,
       nameFontSize,
       documentFontSize,
-      lineHeight,
+      fontName,
     } = this;
 
     const { name, email, phone, url, summary, location } = resume.basics;
 
     // const getStringWidth = (str: string) => getDocStringWidth(doc, str);
 
-    doc.setFont("times");
+    doc.setFont(fontName);
 
     // Add name and contact info
     doc
@@ -47,61 +48,16 @@ export class SimpleGenerator extends BasePDFGenerator {
 
     this.writeSummary(summary);
 
-    // Add work experience
-    if (!!resume?.work?.length) {
-      const bulletPointWithSpace = "   •   ";
-      const bulletPointWidth = this.getStringWidth(bulletPointWithSpace);
-
-      this.writeHeader("Experience");
-
-      resume.work.forEach((work, index) => {
-        doc
-          .setFont("times", "bold")
-          .text(
-            work.name,
-            defaultMargin.left,
-            (defaultMargin.top +=
-              index === 0 ? documentFontSize * 1.5 : documentFontSize * 2)
-          )
-          .setFont("times", "normal")
-          .text(
-            `${work.startDate} — ${work.endDate}`,
-            defaultPaperSize.width - defaultMargin.right,
-            defaultMargin.top,
-            { align: "right" }
-          )
-          .text(
-            work.position,
-            defaultMargin.left,
-            (defaultMargin.top += documentFontSize * lineHeight)
-          );
-
-        work.highlights.forEach((highlight) => {
-          doc.text(
-            bulletPointWithSpace,
-            defaultMargin.left,
-            (defaultMargin.top += documentFontSize * lineHeight)
-          );
-
-          this.splitLines(highlight).forEach((line, index) => {
-            doc.text(
-              line,
-              defaultMargin.left + bulletPointWidth,
-              (defaultMargin.top +=
-                index === 0 ? 0 : documentFontSize * lineHeight)
-            );
-          });
-        });
-      });
-    }
+    this.writeWorkExperience(resume.work);
 
     return doc;
   };
 
   private writeHeader = (text: string): void => {
-    const { doc, defaultMargin, defaultPaperSize, documentFontSize } = this;
+    const { doc, defaultMargin, defaultPaperSize, documentFontSize, fontName } =
+      this;
     doc
-      .setFont("times", "bold")
+      .setFont(fontName, "bold")
       .setFontSize(documentFontSize)
       .text(
         text,
@@ -114,7 +70,7 @@ export class SimpleGenerator extends BasePDFGenerator {
         defaultPaperSize.width - defaultMargin.right,
         defaultMargin.top
       )
-      .setFont("times", "normal")
+      .setFont(fontName, "normal")
       .setFontSize(documentFontSize);
   };
 
@@ -139,6 +95,67 @@ export class SimpleGenerator extends BasePDFGenerator {
         (defaultMargin.top +=
           index === 0 ? documentFontSize * 1.5 : documentFontSize * lineHeight)
       );
+    });
+  };
+
+  private writeWorkExperience = (work?: WorkType[]): void => {
+    if (!work?.length) return;
+
+    const {
+      doc,
+      defaultMargin,
+      defaultPaperSize,
+      documentFontSize,
+      lineHeight,
+      fontName,
+      writeHeader,
+      splitLines,
+      getStringWidth,
+    } = this;
+
+    const bulletPointWithSpace = "   •   ";
+    const bulletPointWidth = getStringWidth(bulletPointWithSpace);
+
+    writeHeader("Experience");
+
+    work.forEach((work, index) => {
+      doc
+        .setFont(fontName, "bold")
+        .text(
+          work.name,
+          defaultMargin.left,
+          (defaultMargin.top +=
+            index === 0 ? documentFontSize * 1.5 : documentFontSize * 2)
+        )
+        .setFont(fontName, "normal")
+        .text(
+          `${work.startDate} — ${work.endDate}`,
+          defaultPaperSize.width - defaultMargin.right,
+          defaultMargin.top,
+          { align: "right" }
+        )
+        .text(
+          work.position,
+          defaultMargin.left,
+          (defaultMargin.top += documentFontSize * lineHeight)
+        );
+
+      work.highlights.forEach((highlight) => {
+        doc.text(
+          bulletPointWithSpace,
+          defaultMargin.left,
+          (defaultMargin.top += documentFontSize * lineHeight)
+        );
+
+        splitLines(highlight).forEach((line, index) => {
+          doc.text(
+            line,
+            defaultMargin.left + bulletPointWidth,
+            (defaultMargin.top +=
+              index === 0 ? 0 : documentFontSize * lineHeight)
+          );
+        });
+      });
     });
   };
 
