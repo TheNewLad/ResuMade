@@ -1,6 +1,11 @@
 import { BasePDFGenerator } from "@/pdf-generators/BasePDFGenerator";
 import { jsPDF } from "jspdf";
-import { BasicsType, ResumeType, WorkType } from "@/types/resume";
+import {
+  BasicsType,
+  EducationType,
+  ResumeType,
+  WorkType,
+} from "@/types/resume";
 
 export class SimpleGenerator extends BasePDFGenerator {
   private documentFontSize = 12;
@@ -24,24 +29,23 @@ export class SimpleGenerator extends BasePDFGenerator {
 
     this.writeWorkExperience(resume.work);
 
+    this.writeEducation(resume.education);
+
     return doc;
   };
 
   protected writeHeader = (text: string): void => {
     const { doc, defaultMargin, defaultPaperSize, documentFontSize, fontName } =
       this;
+    const headerFontSize = documentFontSize + 2;
 
     doc
       .setFont(fontName, "bold")
-      .setFontSize(documentFontSize)
-      .text(
-        text,
-        defaultMargin.left,
-        (defaultMargin.top += documentFontSize * 2)
-      )
+      .setFontSize(headerFontSize)
+      .text(text, defaultMargin.left, (defaultMargin.top += headerFontSize * 2))
       .line(
         defaultMargin.left,
-        (defaultMargin.top += documentFontSize * 0.25),
+        (defaultMargin.top += headerFontSize * 0.25),
         defaultPaperSize.width - defaultMargin.right,
         defaultMargin.top
       )
@@ -149,7 +153,7 @@ export class SimpleGenerator extends BasePDFGenerator {
           (defaultMargin.top += documentFontSize * lineHeight)
         );
 
-        splitLines(highlight).forEach((line, index) => {
+        splitLines(highlight, bulletPointWidth).forEach((line, index) => {
           doc.text(
             line,
             defaultMargin.left + bulletPointWidth,
@@ -161,11 +165,42 @@ export class SimpleGenerator extends BasePDFGenerator {
     });
   };
 
-  protected splitLines = (text: string): any[] =>
-    this.doc.splitTextToSize(
-      text,
-      this.defaultPaperSize.width -
-        this.defaultMargin.left -
-        this.defaultMargin.right
-    );
+  protected writeEducation = (education?: EducationType[]): void => {
+    if (!education?.length) return;
+
+    const {
+      doc,
+      defaultMargin,
+      defaultPaperSize,
+      documentFontSize,
+      lineHeight,
+      fontName,
+      writeHeader,
+    } = this;
+
+    writeHeader("Education");
+
+    education.forEach((education, index) => {
+      doc
+        .setFont(fontName, "bold")
+        .text(
+          education.institution,
+          defaultMargin.left,
+          (defaultMargin.top +=
+            index === 0 ? documentFontSize * 1.5 : documentFontSize * 2)
+        )
+        .setFont(fontName, "normal")
+        .text(
+          `${education.startDate} — ${education.endDate}`,
+          defaultPaperSize.width - defaultMargin.right,
+          defaultMargin.top,
+          { align: "right" }
+        )
+        .text(
+          `${education.studyType} in ${education.area}`,
+          defaultMargin.left,
+          (defaultMargin.top += documentFontSize * lineHeight)
+        );
+    });
+  };
 }

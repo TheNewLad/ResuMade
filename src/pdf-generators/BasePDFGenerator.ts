@@ -1,4 +1,9 @@
-import { BasicsType, ResumeType, WorkType } from "@/types/resume";
+import {
+  BasicsType,
+  EducationType,
+  ResumeType,
+  WorkType,
+} from "@/types/resume";
 import { jsPDF } from "jspdf";
 
 interface Margin {
@@ -32,6 +37,15 @@ export abstract class BasePDFGenerator {
   protected getStringWidth = (str: string) =>
     Math.round(this.doc.getStringUnitWidth(str) * this.doc.getFontSize());
 
+  protected splitLines = (text: string, offsetWidth: number = 0): any[] =>
+    this.doc.splitTextToSize(
+      text,
+      this.defaultPaperSize.width -
+        this.defaultMargin.left -
+        this.defaultMargin.right -
+        offsetWidth
+    );
+
   protected constructor(resume: ResumeType, doc: jsPDF) {
     this.resume = resume;
     this.doc = doc;
@@ -56,6 +70,8 @@ export abstract class BasePDFGenerator {
   protected abstract writeSummary(summary: string): void;
 
   protected abstract writeWorkExperience(work: WorkType[]): void;
+
+  protected abstract writeEducation(education: EducationType[]): void;
 }
 
 const convertInchesToPoints = (inches: number) => {
