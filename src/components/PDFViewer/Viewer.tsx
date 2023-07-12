@@ -30,7 +30,7 @@ export default function Viewer({ url, viewPdf, savePdf }: PDFViewerProps) {
         <ArrowPathIcon className={"h-20 w-20 animate-spin text-gray-200"} />
       ) : (
         <div className="p-10">
-          <canvas className="w-full" ref={canvasRef} />
+          <canvas className="w-full md:max-w-2xl" ref={canvasRef} />
           <div className="flex justify-between">
             <div>
               <ActionButton onClick={() => viewPdf()} aria-label={"View PDF"}>
