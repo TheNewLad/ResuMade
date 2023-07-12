@@ -1,4 +1,4 @@
-import { BasePDFGenerator } from "@/pdf-generators/BasePDFGenerator";
+import { BaseGenerator } from "@/pdf-generators/base.generator";
 import { jsPDF } from "jspdf";
 import {
   BasicsType,
@@ -7,7 +7,7 @@ import {
   WorkType,
 } from "@/types/resume";
 
-export class SimpleGenerator extends BasePDFGenerator {
+export class SimpleGenerator extends BaseGenerator {
   private documentFontSize = 12;
   private nameFontSize = 18;
   private lineHeight = 1.2;

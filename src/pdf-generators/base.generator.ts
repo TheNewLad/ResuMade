@@ -18,7 +18,7 @@ interface PaperSize {
   readonly height: number;
 }
 
-export abstract class BasePDFGenerator {
+export abstract class BaseGenerator {
   protected resume: ResumeType;
   protected doc: jsPDF;
 
