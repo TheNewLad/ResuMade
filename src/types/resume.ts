@@ -30,7 +30,7 @@ export type WorkType = {
   url: string;
   startDate: string;
   endDate: string;
-  summary: string;
+  // summary: string;
   highlights: string[];
 };
 
@@ -46,13 +46,13 @@ export type VolunteerType = {
 
 export type EducationType = {
   institution: string;
-  url: string;
+  // url: string;
   area: string;
   studyType: string;
   startDate: string;
   endDate: string;
-  score: string;
-  courses: string[];
+  // score: string;
+  // courses: string[];
 };
 
 export type AwardType = {
@@ -109,9 +109,9 @@ export type ProjectType = {
 
 export type ResumeType = {
   basics: BasicsType;
-  // work?: Work[];
+  work?: WorkType[];
   // volunteer?: Volunteer[];
-  // education?: Education[];
+  education?: EducationType[];
   // awards?: Award[];
   // certificates?: Certificate[];
   // publications?: Publication[];
