@@ -1,8 +1,9 @@
 import { faker } from "@faker-js/faker";
-import { ResumeType, WorkType } from "@/types/resume";
+import { EducationType, ResumeType, WorkType } from "@/types/resume";
 
 export const getResume = (): ResumeType => {
-  faker.seed(1);
+  // faker.seed(1);
+
   return {
     basics: {
       name: faker.person.fullName(),
@@ -16,6 +17,7 @@ export const getResume = (): ResumeType => {
       },
     },
     work: getWorkExperience(),
+    education: getEducation(),
   };
 };
 
@@ -47,5 +49,50 @@ const getWork = (present: boolean = false): WorkType => {
     highlights: Array.from({ length: 3 }, () =>
       faker.lorem.paragraph({ min: 1, max: 3 })
     ),
+  };
+};
+
+const getEducation = (): EducationType[] => [
+  {
+    institution: `${faker.location.city()} University`,
+    area: "Computer Science",
+    studyType: "M.S.",
+    startDate: faker.date.past().toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    }),
+    endDate: faker.date.past().toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    }),
+  },
+  {
+    institution: `${faker.location.city()} University`,
+    area: "Computer Science",
+    studyType: "B.S.",
+    startDate: faker.date.past().toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    }),
+    endDate: faker.date.past().toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    }),
+  },
+];
+
+const getEducationItem = (): EducationType => {
+  return {
+    institution: "University",
+    area: "Computer Science",
+    studyType: "Bachelor",
+    startDate: faker.date.past().toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    }),
+    endDate: faker.date.past().toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    }),
   };
 };
