@@ -7,7 +7,7 @@ import {
   WorkType,
 } from "@/types/resume";
 
-export class SimpleGenerator extends BaseGenerator {
+export class SimpleThemeGenerator extends BaseGenerator {
   private documentFontSize = 12;
   private nameFontSize = 18;
   private lineHeight = 1.2;

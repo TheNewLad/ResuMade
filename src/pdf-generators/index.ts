@@ -1,3 +1,3 @@
-import { SimpleGenerator } from "@/pdf-generators/SimpleGenerator";
+import { SimpleThemeGenerator } from "@/pdf-generators/simpleTheme.generator";
 
-export { SimpleGenerator };
+export { SimpleThemeGenerator };
