@@ -9,12 +9,16 @@ import {
 } from "@heroicons/react/24/solid";
 
 interface PDFViewerProps {
-  url: string;
+  url?: string;
   viewPdf: () => void;
   savePdf: () => void;
 }
 
-export default function Viewer({ url, viewPdf, savePdf }: PDFViewerProps) {
+export default function Viewer({
+  url = "/empty-page.pdf",
+  viewPdf,
+  savePdf,
+}: PDFViewerProps) {
   const [page, setPage] = useState(1);
   const canvasRef = useRef(null);
 
